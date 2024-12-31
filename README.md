@@ -5,6 +5,18 @@
 
 以及，**纪念我在DoD花费的一万小时**。
 
+## 使用方法
+
+### Loader
+
+1. 编译 **begeerte_loader.exe** 以及 **begeerte.dll**
+
+2. 将它们放在同一个目录。
+
+3. 运行 **begeerte_loader.exe**
+
+## 更新日志
+
 ### 2024/12/31
 
 添加了一个**loader**
