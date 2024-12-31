@@ -1,4 +1,4 @@
-﻿#include <iostream>  
+#include <iostream>
 #include <windows.h>
 #include <vector>
 #include <string>
@@ -6,11 +6,27 @@
 #include <tlhelp32.h>
 #include <thread>
 #include <chrono>
+#include <random>
+#include <ctime>
 
 namespace fs = std::filesystem;
+
 int max_timed_out_time = 300;
 int max_delay_inject_time = 3;
 int max_shutdown_time = 5;
+
+// 设置随机文件名
+std::string generateRandomFileName(size_t length) {
+    const std::string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    std::string result;
+    std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+    std::uniform_int_distribution<size_t> dist(0, chars.size() - 1);
+
+    for (size_t i = 0; i < length; ++i) {
+        result += chars[dist(rng)];
+    }
+    return result;
+}
 
 // 函数：列出当前目录下的 DLL 文件
 std::vector<std::string> ListDllFiles(const std::string& dir) {
@@ -97,9 +113,24 @@ bool InjectDll(DWORD processID, const std::string& dllPath) {
 }
 
 int main() {
+    // 获取当前程序路径并重命名
+    char currentExePath[MAX_PATH];
+    GetModuleFileNameA(NULL, currentExePath, MAX_PATH);
+    std::string currentExe(currentExePath);
+    std::string newExeName = generateRandomFileName(10) + ".exe";  // 随机生成新程序名
+    std::string newExePath = fs::current_path().string() + "\\" + newExeName;
+
+    // 重命名当前程序
+    if (MoveFileA(currentExe.c_str(), newExePath.c_str())) {
+        std::cout << "Program renamed to: " << newExeName << "\n";
+    }
+    else {
+        std::cerr << "Failed to rename program.\n";
+        return 1;
+    }
+
     // 获取当前目录下的所有 DLL 文件
-    std::string currentDir = fs::current_path().string();
-    std::vector<std::string> dllFiles = ListDllFiles(currentDir);
+    std::vector<std::string> dllFiles = ListDllFiles(fs::current_path().string());
 
     for (size_t i = 0; i < dllFiles.size(); ++i) {
         std::cout << i + 1 << ". " << fs::path(dllFiles[i]).filename().string() << "\n";
@@ -121,6 +152,17 @@ int main() {
     }
 
     std::string targetDll = dllFiles[dllChoice - 1];
+
+    // 在选择 DLL 后，立即重命名该 DLL 文件
+    std::string renamedDll = fs::current_path().string() + "\\" + generateRandomFileName(10) + ".dll";
+    if (MoveFileA(targetDll.c_str(), renamedDll.c_str())) {
+        std::cout << "DLL renamed to: " << renamedDll << "\n";
+        targetDll = renamedDll;  // 更新 DLL 路径
+    }
+    else {
+        std::cerr << "Failed to rename DLL.\n";
+        return 1;
+    }
 
     // 查找目标进程 "Dragons-Win64-Shipping.exe"
     bool processFound = false;
@@ -171,14 +213,10 @@ int main() {
         }
         else {
             std::cerr << "DLL injection failed.\n";
+            return 1;  // 注入失败时退出程序
         }
     }
 
-    // 等待5秒钟后自动退出
-    for (int i = max_shutdown_time; i > 0; --i) {
-        std::cout << "Exiting in " << i << " seconds...\n";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
+    // 退出当前进程
     return 0;
 }
