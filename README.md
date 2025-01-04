@@ -7,7 +7,7 @@
 
 ## 使用方法
 
-### Loader
+1. 前往 **[begeerte](https://github.com/zetsr/begeerte/archive/refs/heads/main.zip)** 或 **[Releases](https://github.com/zetsr/begeerte/releases)** 下载项目文件
 
 1. 编译 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
