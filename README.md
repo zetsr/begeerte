@@ -9,13 +9,13 @@
 
 ### Loader
 
-1. 编译 **begeerte_loader**
+1. 编译 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
-2. 编译 **begeerte_dod**、**begeerte_gttgg**（如果需要）
+2. 按需编译 **[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
 
-3. 将 **begeerte_loader** 以及 **begeerte_dod**、**begeerte_gttgg** 放在同一个目录。
+3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)** 以及 **[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 放在同一个目录。
 
-4. 运行 **begeerte_loader**
+4. 运行 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
 ## 更新日志
 
