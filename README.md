@@ -1,7 +1,5 @@
 # begeerte
 
-## DO NOT USE THIS PROJECT IN ENVIRONMENTS PROTECTED BY EAC. / 避免在受EAC保护的环境中使用本项目！
-
 简易的内存与钩子~~黑客~~，目前的唯一用处是在帧生成错误被修复前强制使其保持启用状态。（~~或许还是GPT代码与公开存储库的粘贴应用~~）
 
 没有太多的维护价值，它被创建的最初目的只是用于逆向练习。
