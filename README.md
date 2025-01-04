@@ -9,13 +9,19 @@
 
 ### Loader
 
-1. 编译 **begeerte_loader.exe** 以及 **begeerte.dll**
+1. 编译 **begeerte_loader**
 
-2. 将它们放在同一个目录。
+2. 编译 **begeerte_dod**、**begeerte_gttgg**（如果需要）
 
-3. 运行 **begeerte_loader.exe**
+3. 将 **begeerte_loader** 以及 **begeerte_dod**、**begeerte_gttgg** 放在同一个目录。
+
+4. 运行 **begeerte_loader**
 
 ## 更新日志
+
+### 2025/1/4
+
+-项目改进与新内容
 
 ### 2024/12/31
 
