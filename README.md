@@ -55,7 +55,11 @@
 启用/禁用 begeerte 的 RenderResolution 功能：
 
     set RR <int value>
-    
+
+### Dragons Legacy
+
+### Golden Treasure: The Great Green
+
 ## 更新日志
 
 ### 2025/1/5
