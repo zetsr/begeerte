@@ -22,6 +22,40 @@
 
 4. 运行 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
+## 文档
+
+### 一般
+
+清理控制台：
+
+    clear
+
+获取 int 类型内存的值：
+
+    mm_get_int <hex address> <hex offset>
+
+获取 float 类型内存的值：
+
+    mm_get_float <hex address> <hex offset>
+    
+设置 int 类型内存的值：
+
+    mm_set_int <hex address> <hex offset> <int value>
+
+设置 float 类型内存的值：
+
+    mm_set_float <hex address> <hex offset> <float value>
+
+### Day of Dragons
+
+启用/禁用 begeerte 的 FrameGen 功能：
+
+    set FrameGen <int value>
+
+启用/禁用 begeerte 的 RenderResolution 功能：
+
+    set RR <int value>
+    
 ## 更新日志
 
 ### 2025/1/5
