@@ -16,9 +16,9 @@
 
 1. 编译 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
-2. 按需编译 **[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
+2. 按需编译 **[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
 
-3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)** 以及 **[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 放在同一个目录。
+3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 的 **编译文件** 放在相同目录。
 
 4. 运行 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
