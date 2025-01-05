@@ -8,7 +8,7 @@
 
 以及，**纪念我在DoD花费的一万小时**。
 
-![begeerte for golden treasure the great green cheat](https://github.com/user-attachments/assets/febbafb2-b16d-446a-a14b-5965c520410f)
+![begeerte for day of dragons](https://github.com/user-attachments/assets/afeab634-b28e-46f8-abc9-f73f9de43002)
 
 ## 使用方法
 
