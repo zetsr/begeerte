@@ -8,6 +8,8 @@
 
 以及，**纪念我在DoD花费的一万小时**。
 
+![begeerte for golden treasure the great green cheat](https://github.com/user-attachments/assets/febbafb2-b16d-446a-a14b-5965c520410f)
+
 ## 使用方法
 
 1. 前往 **[begeerte](https://github.com/zetsr/begeerte/archive/refs/heads/main.zip)** 或 **[Releases](https://github.com/zetsr/begeerte/releases)** 下载项目文件
