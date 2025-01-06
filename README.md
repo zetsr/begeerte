@@ -48,19 +48,27 @@
 
 ### Day of Dragons
 
-启用/禁用 begeerte 的 FrameGen 功能：
+启用/禁用 FrameGen 功能：
 
     set FrameGen <int value>
 
-启用/禁用 begeerte 的 RenderResolution 功能：
+设置 RenderResolution 的值：
 
-    set RR <int value>
+    set RR <float value>
 
 ### Dragons Legacy
 
 ### Golden Treasure: The Great Green
 
 ## 更新日志
+
+### 2025/1/7
+
+-添加指令 **fps_max**
+
+-改进指令 **set FrameGen**
+
+-改进指令 **set RR**
 
 ### 2025/1/5
 
