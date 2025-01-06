@@ -56,7 +56,15 @@
 
     set RR <float value>
 
+设置 FrameRateLimit 的值：
+
+    fps_max <float value>    
+
 ### Dragons Legacy
+
+设置 FrameRateLimit 的值：
+
+    fps_max <float value>    
 
 ### Golden Treasure: The Great Green
 
