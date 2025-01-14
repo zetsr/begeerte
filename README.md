@@ -44,6 +44,8 @@
 
     mm_set_float <hex address> <hex offset> <float value>
 
+### Counter-Strike 2
+
 ### Day of Dragons
 
 启用/禁用 FrameGen 功能：
