@@ -14,9 +14,9 @@
 
 1. 编译 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
-2. 按需编译 **[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
+2. 按需编译 **[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_draconia](https://github.com/zetsr/begeerte/tree/main/begeerte_draconia)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
 
-3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**、**[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 的 **编译文件** 放在相同目录。
+3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**、**[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_draconia](https://github.com/zetsr/begeerte/tree/main/begeerte_draconia)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 的 **编译文件** 放在相同目录。
 
 4. 运行 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
 
@@ -59,6 +59,8 @@
 设置 FrameRateLimit 的值：
 
     fps_max <float value>    
+
+### Draconia
 
 ### Dragons Legacy
 
