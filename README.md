@@ -72,6 +72,12 @@
 
 ### Golden Treasure: The Great Green
 
+## 已知错误
+
+### **loader** 只能在首次更新后正确删除自己
+
+### **clear** 命令缺少格式检查
+
 ## 更新日志
 
 ### 2025/2/11
