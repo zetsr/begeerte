@@ -20,7 +20,7 @@
 
 1. 下载 **[begeerte_loader](http://zetsr.github.io/begeerte_/begeerte_loader.exe)**
 
-2. 运行**loader**，它会自动从我的**[存储库](https://github.com/zetsr/zetsr.github.io/tree/main/begeerte_)**下载最新的编译版本。
+2. 运行**loader**，它会自动从我的 **[存储库](https://github.com/zetsr/zetsr.github.io/tree/main/begeerte_)** 下载最新的编译版本。
 
 ## 文档
 
