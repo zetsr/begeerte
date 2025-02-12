@@ -8,17 +8,19 @@
 
 ![begeerte for day of dragons](https://github.com/user-attachments/assets/afeab634-b28e-46f8-abc9-f73f9de43002)
 
-## 使用方法
+## 使用方法（自行编译）
 
 1. 前往 **[begeerte](https://github.com/zetsr/begeerte/archive/refs/heads/main.zip)** 或 **[Releases](https://github.com/zetsr/begeerte/releases)** 下载项目文件
 
-1. 编译 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
-
 2. 按需编译 **[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_draconia](https://github.com/zetsr/begeerte/tree/main/begeerte_draconia)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)**
 
-3. 将 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**、**[begeerte_cs2](https://github.com/zetsr/begeerte/tree/main/begeerte_cs2)**、**[begeerte_dod](https://github.com/zetsr/begeerte/tree/main/begeerte_dod)**、**[begeerte_draconia](https://github.com/zetsr/begeerte/tree/main/begeerte_draconia)**、**[begeerte_dl](https://github.com/zetsr/begeerte/tree/main/begeerte_dl)**、**[begeerte_gttgg](https://github.com/zetsr/begeerte/tree/main/begeerte_gttgg)** 的 **编译文件** 放在相同目录。
+3. 使用**注入器**将编译后的DLL文件注入到目标进程。
 
-4. 运行 **[begeerte_loader](https://github.com/zetsr/begeerte/tree/main/begeerte_loader)**
+## 使用方法（自动更新）
+
+1. 下载 **[begeerte_loader](http://zetsr.github.io/begeerte_/begeerte_loader.exe)**
+
+2. 运行**loader**，它会自动从我的**[存储库](https://github.com/zetsr/zetsr.github.io/tree/main/begeerte_)**下载最新的编译版本。
 
 ## 文档
 
