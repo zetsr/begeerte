@@ -72,11 +72,11 @@
 
 ### Golden Treasure: The Great Green
 
-## 已知错误
+## 已知问题
 
-### **loader** 只能在首次更新后正确删除自己
+**loader** 只能在首次更新后正确删除自己
 
-### **clear** 命令缺少格式检查
+**clear** 命令缺少格式检查
 
 ## 更新日志
 
