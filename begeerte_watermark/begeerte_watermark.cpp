@@ -17,7 +17,7 @@ typedef HRESULT(WINAPI* SETPROCESSDPIAWARENESS)(PROCESS_DPI_AWARENESS);
 
 namespace Constants {
     const COLORREF COLOR_MAIN = RGB(255, 100, 0);
-    const COLORREF COLOR_ALT = RGB(255, 255, 255);
+    const COLORREF COLOR_ALT = RGB(200, 200, 200);
     const COLORREF COLOR_BG = RGB(0, 0, 0);
     const int INIT_X = 100;
     const int INIT_Y = 100;
