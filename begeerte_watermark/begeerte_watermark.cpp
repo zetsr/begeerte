@@ -17,7 +17,7 @@ typedef HRESULT(WINAPI* SETPROCESSDPIAWARENESS)(PROCESS_DPI_AWARENESS);
 
 namespace Constants {
     const COLORREF COLOR_MAIN = RGB(255, 100, 0);
-    const COLORREF COLOR_ALT = RGB(200, 200, 200);
+    const COLORREF COLOR_ALT = RGB(255, 255, 255);
     const COLORREF COLOR_BG = RGB(0, 0, 0);
     const int INIT_X = 100;
     const int INIT_Y = 100;
@@ -35,7 +35,7 @@ namespace Constants {
         static constexpr const char* NAME_TEXT = "begeerte";
         static constexpr const char* PERCENT_SUFFIX = "%";
         static constexpr const char* CPU_LABEL = "CPU";
-        static constexpr const char* GHZ_SUFFIX = "GHZ";
+        static constexpr const char* GHZ_SUFFIX = "GHz";
     };
 
     const UINT WM_NOTIFYICON = WM_USER + 1;
