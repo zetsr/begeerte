@@ -1,4 +1,4 @@
-#include <windows.h>
+#include <windows.h> 
 #include <string>
 #include <sstream>
 #include <chrono>
@@ -7,10 +7,16 @@
 #include <comdef.h>
 #include <Wbemidl.h>
 #include <ShellScalingApi.h>
+#include <stdlib.h>  // 用于 malloc/free
 #pragma comment(lib, "pdh.lib")
 #pragma comment(lib, "wbemuuid.lib")
 #pragma comment(lib, "Shcore.lib")
 #pragma comment(lib, "user32.lib")
+
+// 如果 PDH_MORE_DATA 未定义，则定义之
+#ifndef PDH_MORE_DATA
+#define PDH_MORE_DATA ((PDH_STATUS)0x800007D2)
+#endif
 
 typedef BOOL(WINAPI* SETPROCESSDPIAWAREAWARE)();
 typedef HRESULT(WINAPI* SETPROCESSDPIAWARENESS)(PROCESS_DPI_AWARENESS);
@@ -45,10 +51,11 @@ namespace Constants {
 
 static float dpiScale = 1.0f;
 
+// 修改：使用 GetDesktopWindow() 代替 NULL
 float GetDPIScale(HMONITOR hMonitor = NULL) {
     UINT dpiX, dpiY;
     if (!hMonitor) {
-        hMonitor = MonitorFromWindow(NULL, MONITOR_DEFAULTTOPRIMARY);
+        hMonitor = MonitorFromWindow(GetDesktopWindow(), MONITOR_DEFAULTTOPRIMARY);
     }
     GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY);
     return static_cast<float>(dpiX) / 96.0f;
@@ -70,6 +77,7 @@ struct RectData {
 struct SystemInfo {
     double cpuUsage = 0.0;
     double cpuFreq = 0.0;
+    double gpuUsage = 0.0;
     std::string timeStr;
 };
 
@@ -238,6 +246,57 @@ public:
     }
 };
 
+// 新增：GPU 使用率监控类，利用 PDH 通配符查询 GPU Engine 中 3D 引擎的利用率
+class GpuMonitor {
+private:
+    PDH_HQUERY queryGpu = NULL;
+    PDH_HCOUNTER counterGpu = NULL;
+    bool initialized = false;
+public:
+    GpuMonitor() {
+        if (PdhOpenQuery(NULL, 0, &queryGpu) == ERROR_SUCCESS) {
+            // 使用通配符获取所有 GPU Engine 的利用率
+            if (PdhAddCounter(queryGpu, L"\\GPU Engine(*)\\Utilization Percentage", 0, &counterGpu) == ERROR_SUCCESS) {
+                PdhCollectQueryData(queryGpu);
+                initialized = true;
+            }
+        }
+    }
+    ~GpuMonitor() {
+        if (queryGpu) {
+            PdhCloseQuery(queryGpu);
+        }
+    }
+    double GetGpuUsage() {
+        if (!initialized || !queryGpu) return 0.0;
+        PdhCollectQueryData(queryGpu);
+        DWORD bufferSize = 0;
+        DWORD itemCount = 0;
+        PDH_STATUS status = PdhGetFormattedCounterArrayW(counterGpu, PDH_FMT_DOUBLE, &bufferSize, &itemCount, NULL);
+        if (status != PDH_MORE_DATA && status != ERROR_SUCCESS) {
+            return 0.0;
+        }
+        PDH_FMT_COUNTERVALUE_ITEM_W* items = (PDH_FMT_COUNTERVALUE_ITEM_W*)malloc(bufferSize);
+        if (!items) return 0.0;
+        status = PdhGetFormattedCounterArrayW(counterGpu, PDH_FMT_DOUBLE, &bufferSize, &itemCount, items);
+        double totalUsage = 0.0;
+        if (status == ERROR_SUCCESS) {
+            for (DWORD i = 0; i < itemCount; i++) {
+                // 仅统计包含 "engtype_3D" 的 3D 引擎数据
+                if (wcsstr(items[i].szName, L"engtype_3D") != NULL) {
+                    totalUsage += items[i].FmtValue.doubleValue;
+                }
+            }
+        }
+        free(items);
+        if (totalUsage > 100.0) totalUsage = 100.0;
+        return totalUsage;
+    }
+};
+
+// 在全局范围内构造 GPU 监控对象（确保仅构造一次）
+static GpuMonitor gpuMonitor;
+
 void AddTrayIcon(HWND hwnd, HINSTANCE hInstance) {
     NOTIFYICONDATA nid = { 0 };
     nid.cbSize = sizeof(NOTIFYICONDATA);
@@ -264,9 +323,12 @@ void UpdateSystemInfo(SystemInfo& info, CpuMonitor& cpuMonitor, WmiCpuFreq& cpuF
     double perfPercentage = cpuMonitor.GetCpuPerformancePercentage();
     info.cpuFreq = baseFreq * (perfPercentage / 100.0);
 
-    char buffer[100];
-    sprintf_s(buffer, "Actual Frequency: %.1f GHz (Base: %.1f GHz, Perf: %.1f%%)\n",
-        info.cpuFreq, baseFreq, perfPercentage);
+    // 更新 GPU 数据（仅获取使用率）
+    info.gpuUsage = gpuMonitor.GetGpuUsage();
+
+    char buffer[200];
+    sprintf_s(buffer, "CPU: Actual Frequency: %.1f GHz (Base: %.1f GHz, Perf: %.1f%%)\nGPU: Usage: %.1f%%\n",
+        info.cpuFreq, baseFreq, perfPercentage, info.gpuUsage);
     OutputDebugStringA(buffer);
 
     auto now = std::chrono::system_clock::now();
@@ -282,11 +344,15 @@ void UpdateSystemInfo(SystemInfo& info, CpuMonitor& cpuMonitor, WmiCpuFreq& cpuF
 
 std::string GenerateDisplayText(const SystemInfo& info) {
     std::ostringstream oss;
+    std::ostringstream freqStream;
+    freqStream << std::fixed << std::setprecision(1) << info.cpuFreq;
+    // 显示 GPU 使用率（不再显示 GPU 频率）
     oss << Constants::TextFormat::NAME_TEXT << Constants::TEXT_SEPARATOR
         << static_cast<int>(info.cpuUsage) << Constants::TextFormat::PERCENT_SUFFIX
         << Constants::TextFormat::CPU_LABEL << Constants::TEXT_SEPARATOR
-        << std::fixed << std::setprecision(1) << info.cpuFreq << Constants::TextFormat::GHZ_SUFFIX
-        << Constants::TEXT_SEPARATOR << info.timeStr;
+        << freqStream.str() << Constants::TextFormat::GHZ_SUFFIX << Constants::TEXT_SEPARATOR
+        << std::to_string(static_cast<int>(info.gpuUsage)) << "%" << "GPU" << Constants::TEXT_SEPARATOR
+        << info.timeStr;
     return oss.str();
 }
 
@@ -315,6 +381,9 @@ void AdjustRectSize(HDC hdc, const RectData& rect, const SystemInfo& info) {
         {freqStream.str(), false},
         {Constants::TextFormat::GHZ_SUFFIX, true},
         {Constants::TEXT_SEPARATOR, false},
+        {std::to_string(static_cast<int>(info.gpuUsage)) + "%", false},
+        {"GPU", true},
+        {Constants::TEXT_SEPARATOR, false},
         {info.timeStr, false}
     };
 
@@ -329,7 +398,9 @@ void AdjustRectSize(HDC hdc, const RectData& rect, const SystemInfo& info) {
         totalWidth += size.cx;
         if (segment.useSmallFont) {
             if (segment.text == Constants::TextFormat::CPU_LABEL ||
-                segment.text == Constants::TextFormat::GHZ_SUFFIX) {
+                segment.text == Constants::TextFormat::GHZ_SUFFIX ||
+                segment.text == "GPU")
+            {
                 SIZE spaceSize = { 0 };
                 GetTextExtentPoint32A(hdc, " ", 1, &spaceSize);
                 totalWidth += static_cast<int>(spaceSize.cx * Constants::SMALL_TEXT_SPACING);
@@ -388,6 +459,9 @@ void DrawContent(HDC hdc, const RectData& rect, const SystemInfo& info) {
         {freqStream.str(), Constants::COLOR_MAIN, false},
         {Constants::TextFormat::GHZ_SUFFIX, Constants::COLOR_ALT, true},
         {Constants::TEXT_SEPARATOR, Constants::COLOR_MAIN, false},
+        {std::to_string(static_cast<int>(info.gpuUsage)) + "%", Constants::COLOR_MAIN, false},
+        {"GPU", Constants::COLOR_ALT, true},
+        {Constants::TEXT_SEPARATOR, Constants::COLOR_MAIN, false},
         {info.timeStr, Constants::COLOR_ALT, false}
     };
 
@@ -419,7 +493,9 @@ void DrawContent(HDC hdc, const RectData& rect, const SystemInfo& info) {
         currentX += size.cx;
 
         if (segment.text == Constants::TextFormat::CPU_LABEL ||
-            segment.text == Constants::TextFormat::GHZ_SUFFIX) {
+            segment.text == Constants::TextFormat::GHZ_SUFFIX ||
+            segment.text == "GPU")
+        {
             SIZE spaceSize = { 0 };
             GetTextExtentPoint32A(hdc, " ", 1, &spaceSize);
             currentX += static_cast<int>(spaceSize.cx * Constants::SMALL_TEXT_SPACING);
