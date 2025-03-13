@@ -1,4 +1,4 @@
-﻿#include <windows.h>
+#include <windows.h>
 #include <string>
 #include <sstream>
 #include <chrono>
@@ -35,7 +35,7 @@ namespace Constants {
         static constexpr const char* NAME_TEXT = "begeerte";
         static constexpr const char* PERCENT_SUFFIX = "%";
         static constexpr const char* CPU_LABEL = "CPU";
-        static constexpr const char* GHZ_SUFFIX = "GHz";
+        static constexpr const char* GHZ_SUFFIX = "GHZ";
     };
 
     const UINT WM_NOTIFYICON = WM_USER + 1;
